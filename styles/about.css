@@ -1,20 +1,258 @@
-.about-content {
-    display: flex;
-    align-items: center;
+/* about.css - Side by Side Version */
+.about {
+    background-color: white;
+    padding: 80px 0;
+}
+
+.about-content-side {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 50px;
+    align-items: start;
 }
 
-.about-text {
-    flex: 1;
+/* Left Column - Personal Info */
+.about-personal {
+    padding-right: 30px;
 }
 
-.about-img {
-    flex: 1;
+.about-personal h3 {
+    color: var(--primary-color);
+    font-size: 2em;
+    margin-bottom: 25px;
+    border-bottom: 3px solid var(--secondary-color);
+    padding-bottom: 10px;
+}
+
+.about-personal p {
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.7;
+    font-size: 1.1em;
+}
+
+.personal-details {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: var(--border-radius);
+    margin: 30px 0;
+    border-left: 4px solid var(--secondary-color);
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.detail-item:last-child {
+    border-bottom: none;
+}
+
+.detail-item strong {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.detail-item span {
+    color: #666;
+    text-align: right;
+}
+
+/* Right Column - Education */
+.about-education {
+    background: #f8f9fa;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    border: 1px solid #e9ecef;
+}
+
+.education-title {
+    color: var(--primary-color);
+    font-size: 1.8em;
+    margin-bottom: 30px;
     text-align: center;
+    position: relative;
 }
 
-.about-img img {
-    max-width: 100%;
-    border-radius: 10px;
+.education-title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background-color: var(--secondary-color);
+}
+
+.education-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.education-card {
+    background: white;
+    padding: 25px;
+    border-radius: var(--border-radius);
     box-shadow: var(--shadow);
+    border-top: 4px solid var(--secondary-color);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.education-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(52, 152, 219, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+.education-card:hover::before {
+    left: 100%;
+}
+
+.education-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.edu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.edu-year {
+    background: var(--primary-color);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-size: 0.85em;
+    font-weight: 600;
+}
+
+.edu-gpa {
+    background: var(--accent-color);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-size: 0.85em;
+    font-weight: 600;
+}
+
+.education-card h4 {
+    color: var(--primary-color);
+    margin-bottom: 5px;
+    font-size: 1.2em;
+}
+
+.education-card h5 {
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+    font-weight: 500;
+    font-size: 1em;
+}
+
+.education-card p {
+    color: #666;
+    margin-bottom: 15px;
+    line-height: 1.6;
+    font-size: 0.95em;
+}
+
+.edu-achievements {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.edu-achievements li {
+    color: #555;
+    margin-bottom: 8px;
+    font-size: 0.9em;
+    line-height: 1.5;
+    position: relative;
+}
+
+.edu-achievements li::before {
+    content: '▸';
+    color: var(--secondary-color);
+    font-weight: bold;
+    position: absolute;
+    left: -15px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .about-content-side {
+        gap: 30px;
+    }
+    
+    .about-personal {
+        padding-right: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-content-side {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .about-personal {
+        padding-right: 0;
+    }
+    
+    .about-personal h3 {
+        font-size: 1.6em;
+    }
+    
+    .about-personal p {
+        font-size: 1em;
+    }
+    
+    .detail-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    
+    .detail-item span {
+        text-align: left;
+    }
+    
+    .education-card {
+        padding: 20px;
+    }
+    
+    .edu-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-education {
+        padding: 20px;
+    }
+    
+    .education-card {
+        padding: 15px;
+    }
+    
+    .personal-details {
+        padding: 20px;
+    }
 }

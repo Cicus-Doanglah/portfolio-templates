@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="base.css">
+    <title>Template CV Asoy Geboy</title>
+</head>
+<body>
+
+    <div id="header-section"></div>
+    <div id="hero-section"></div>
+    <div id="about-section"></div>
+    <div id="skill-section"></div>
+    <div id="certificate-section"></div>
+    <div id="contact-section"></div>
+    <div id="footer-section"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = [
+                'header-footer/header-section.html',
+                'contents/hero-section.html', 
+                'contents/about-section.html',
+                'contents/skill-section.html',
+                'contents/certificate-section.html',
+                'contents/contact-section.html',
+                'header-footer/footer-section.html'
+            ];
+            
+            sections.forEach(sectionFile => {
+                const sectionId = sectionFile.split('/').pop().replace('.html', '');
+                fetch(sectionFile)
+                    .then(response => response.text())
+                    .then(data => {
+                        document.getElementById(sectionId).innerHTML = data;
+                    })
+                    .catch(error => console.error('Error loading section:', error));
+            });
+        });
+    </script>
+</body>
+</html>

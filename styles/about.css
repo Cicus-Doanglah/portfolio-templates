@@ -92,17 +92,19 @@
     display: flex;
     flex-direction: column;
     gap: 25px;
+    transition: max-height 0.5s ease, opacity 0.5s ease;
+    overflow: hidden;
 }
 
+/* individual card */
 .education-card {
     background: white;
     padding: 25px;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
     border-top: 4px solid var(--secondary-color);
-    transition: var(--transition);
+    transition: all 0.4s ease;
     position: relative;
-    overflow: hidden;
 }
 
 .education-card::before {
@@ -193,12 +195,54 @@
     left: -15px;
 }
 
+/* Hidden card animation */
+.hidden-edu {
+    opacity: 0;
+    max-height: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: all 0.4s ease;
+}
+
+/* Reveal animation */
+.education-card:not(.hidden-edu) {
+    opacity: 1;
+    max-height: 1000px; /* enough to fit contents */
+    transform: scaleY(1);
+}
+
+/* Show More button */
+.show-more-btn {
+    display: block;
+    margin: 20px auto 0;
+    padding: 10px 20px;
+    background-color: var(--secondary-color);
+    color: white;
+    font-size: 0.95em;
+    font-weight: 600;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.show-more-btn:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.show-more-btn:active {
+    transform: translateY(0);
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
     .about-content-side {
         gap: 30px;
     }
-    
     .about-personal {
         padding-right: 20px;
     }

@@ -4,7 +4,6 @@
     <div class="container">
         <h2 class="section-title">About Me</h2>
         <div class="about-content-side">
-            <!-- Left Column - Personal Info -->
             <div class="about-personal">
                 <h3>Hello! I'm Vanilla バニラ</h3>
                 <p>I'm a passionate web developer with over 5 years of experience creating modern, responsive websites and applications. I specialize in front-end development but also have experience with back-end technologies.</p>
@@ -66,8 +65,67 @@
                             <li>Winner of National Coding Competition 2019</li>
                         </ul>
                     </div>
+					
+					<div class="education-card">
+                        <div class="edu-header">
+                            <span class="edu-year">2016 - 2020</span>
+                            <span class="edu-gpa">GPA: 3.9/4.0</span>
+                        </div>
+                        <h4>Bachelor of Software Engineering</h4>
+                        <h5>MIT</h5>
+                        <p>Focus on Full-Stack Development and Software Architecture. Minor in Business Administration.</p>
+                        <ul class="edu-achievements">
+                            <li>Valedictorian</li>
+                            <li>President of Computer Science Club</li>
+                            <li>Winner of National Coding Competition 2019</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<script>
+	(function () {
+		const observer = new MutationObserver((mutations, obs) => {
+			const container = document.querySelector('.education-cards');
+			if (!container) return;
+
+			const cards = container.querySelectorAll('.education-card');
+			if (cards.length <= 2) {
+				obs.disconnect();
+				return;
+			}
+
+			// Hide all but the first 2
+			cards.forEach((card, i) => {
+				if (i >= 2) card.classList.add('hidden-edu');
+			});
+
+			// Add Show More button
+			const button = document.createElement('button');
+			button.className = 'show-more-btn';
+			button.textContent = 'Show More...';
+			container.after(button);
+
+			button.addEventListener('click', () => {
+				const isExpanded = button.classList.toggle('expanded');
+				if (isExpanded) {
+					container.querySelectorAll('.hidden-edu').forEach(c => c.classList.remove('hidden-edu'));
+					button.textContent = 'Show Less...';
+				} else {
+					cards.forEach((c, i) => {
+						if (i >= 2) c.classList.add('hidden-edu');
+					});
+					button.textContent = 'Show More...';
+				}
+			});
+
+			obs.disconnect();
+		});
+
+		observer.observe(document.body, { childList: true, subtree: true });
+	})();
+</script>
+

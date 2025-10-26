@@ -17,29 +17,50 @@
     <div id="certificate-section"></div>
     <div id="footer-section"></div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const sections = [
-                'header-footer/header-section.html',
-                'contents/hero-section.html',
-                'contents/project-section.html',
-                'contents/work-section.html', 
-                'contents/about-section.html',
-                'contents/skill-section.html',
-                'contents/certificate-section.html',
-                'header-footer/footer-section.html'
-            ];
-            
-            sections.forEach(sectionFile => {
-                const sectionId = sectionFile.split('/').pop().replace('.html', '');
-                fetch(sectionFile)
-                    .then(response => response.text())
-                    .then(data => {
-                        document.getElementById(sectionId).innerHTML = data;
-                    })
-                    .catch(error => console.error('Error loading section:', error));
-            });
-        });
-    </script>
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		const sections = [
+			'header-footer/header-section.html',
+			'contents/hero-section.html',
+			'contents/about-section.html',
+			'contents/work-section.html',
+			'contents/project-section.html',
+			'contents/certificate-section.html',
+			'header-footer/footer-section.html'
+		];
+		
+		sections.forEach(sectionFile => {
+			const sectionId = sectionFile.split('/').pop().replace('.html', '');
+			fetch(sectionFile)
+				.then(response => response.text())
+				.then(data => {
+					const container = document.getElementById(sectionId);
+					if (!container) return;
+
+					// Create a temporary element to parse the HTML
+					const temp = document.createElement('div');
+					temp.innerHTML = data;
+
+					// Move all child nodes (HTML content)
+					while (temp.firstChild) {
+						container.appendChild(temp.firstChild);
+					}
+
+					// Run <script> tags found inside
+					container.querySelectorAll('script').forEach(oldScript => {
+						const newScript = document.createElement('script');
+						if (oldScript.src) {
+							newScript.src = oldScript.src; // external file
+						} else {
+							newScript.textContent = oldScript.textContent; // inline script
+						}
+						document.body.appendChild(newScript);
+						oldScript.remove();
+					});
+				})
+				.catch(error => console.error('Error loading section:', error));
+		});
+	});
+</script>
 </body>
 </html>
